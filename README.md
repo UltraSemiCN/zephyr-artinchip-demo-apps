@@ -17,7 +17,7 @@ All dashboards provide animated simulated readings and a UART shell
 (115200 baud, 8N1, no flow control). Enter `help` for commands or `aicupg`
 to reboot into ROM USB upgrade mode.
 
-Landscape profiles show a chip-specific `Zephyr LVGL Dashboard` title,
+All profiles show a centered, chip-specific `Zephyr LVGL Dashboard` title,
 four gauges, a chart, progress bars and status lights. Two equal-width
 columns center the partner logos and their websites.
 
@@ -108,7 +108,8 @@ revisions pinned in `west.yml`.
 | Four baseline dashboards | User-reported board tests passed on 2026-10-12 |
 | Latest landscape branding | Internal D125 MIPI build and 19 MCUboot/AirBurn checks passed on 2026-10-16 |
 | Latest branding on hardware | Not yet confirmed |
-| D133 and D213 with latest branding | Not rebuilt or retested |
+| Public four-profile build at `786c40e` | All built; 19 checks passed per NOR image and 23 for D213 NAND; no new board results |
+| New portrait branding | Internal build and 19 MCUboot/AirBurn checks passed; hardware verification pending |
 
 Before a release, build the affected profiles from the public manifest and
 verify boot, UART input, animated display, and ROM upgrade entry on hardware.
@@ -116,8 +117,7 @@ verify boot, UART input, animated display, and ROM upgrade entry on hardware.
 ## Logo assets
 
 `artinchip.png` and `ultrasemi.png` retain the supplied originals. Logo rights
-remain with their owners. The three landscape profiles embed RGB565A8 C arrays;
-the portrait profile does not include them.
+remain with their owners. All four profiles embed the same RGB565A8 C arrays.
 
 Regenerate from the application repository root with Python and Pillow:
 
@@ -136,7 +136,7 @@ Both logos are 48 pixels high: ArtInChip is 159 pixels wide and UltraSemi is
 202 pixels wide (51,984 bytes total). If either exceeds the 204-pixel limit,
 reduce both heights together to preserve proportions.
 
-The 432-pixel content area has two equal columns. Logos and their websites
+The header content area has two equal columns in both orientations. Logos and their websites
 are centered within each column. No runtime PNG decoder or filesystem is needed.
 
 ## License

@@ -4,16 +4,19 @@
  */
 
 #include "dashboard.h"
+#include "assets/dashboard_logos.h"
 
 const struct dashboard_layout dashboard_layout = {
 	.width = 720,
 	.height = 1280,
-	.header = {0, 0, 720, 52},
+	.header = {16, 16, 688, 172},
+	.chip_name = "D125",
+	.logos = {&dashboard_artinchip_logo, &dashboard_ultrasemi_logo},
 	.gauges = {
-		{16, 68, 336, 381},
-		{368, 68, 336, 381},
-		{16, 465, 336, 381},
-		{368, 465, 336, 381},
+		{16, 204, 336, 313},
+		{368, 204, 336, 313},
+		{16, 533, 336, 313},
+		{368, 533, 336, 313},
 	},
 	.chart = {16, 862, 688, 212},
 	.meters = {

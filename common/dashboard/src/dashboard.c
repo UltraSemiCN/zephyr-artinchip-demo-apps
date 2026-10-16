@@ -86,24 +86,14 @@ static lv_obj_t *create_header(lv_obj_t *parent, const struct dashboard_layout *
 	lv_obj_set_scrollable(bar, false);
 
 	if (layout->chip_name != NULL) {
-		const char *words[] = {layout->chip_name, "Zephyr", "LVGL", "Dashboard"};
-		lv_obj_t *title = lv_obj_create(bar);
+		lv_obj_t *title = lv_label_create(bar);
 
-		/* Distribute word spacing so both ends match the brand area below. */
-		lv_obj_remove_style_all(title);
-		lv_obj_set_size(title, layout->header.width - 24, 30);
-		lv_obj_set_pos(title, 12, 0);
-		lv_obj_set_scrollable(title, false);
+		lv_label_set_text_fmt(title, "%s Zephyr LVGL Dashboard", layout->chip_name);
+		lv_obj_set_width(title, layout->header.width - 24);
 		lv_obj_set_style_text_color(title, lv_color_hex(0x00d4ff), 0);
 		lv_obj_set_style_text_font(title, &lv_font_montserrat_24, 0);
-		lv_obj_set_flex_flow(title, LV_FLEX_FLOW_ROW);
-		lv_obj_set_flex_align(title, LV_FLEX_ALIGN_SPACE_BETWEEN,
-				      LV_FLEX_ALIGN_CENTER, LV_FLEX_ALIGN_CENTER);
-		for (size_t i = 0; i < ARRAY_SIZE(words); i++) {
-			lv_obj_t *word = lv_label_create(title);
-
-			lv_label_set_text(word, words[i]);
-		}
+		lv_obj_set_style_text_align(title, LV_TEXT_ALIGN_CENTER, 0);
+		lv_obj_align(title, LV_ALIGN_TOP_MID, 0, 0);
 	} else {
 		lv_obj_t *title = lv_label_create(bar);
 

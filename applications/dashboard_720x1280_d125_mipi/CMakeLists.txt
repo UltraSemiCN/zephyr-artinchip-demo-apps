@@ -10,4 +10,8 @@ if(NOT BOARD STREQUAL "ultrasemi_d12p_usbdisp_demo88_nor_5_5")
 endif()
 
 include(../../common/dashboard/application.cmake)
-target_sources(app PRIVATE src/layout.c)
+target_sources(app PRIVATE
+  src/layout.c
+  ../../common/dashboard/src/assets/artinchip_logo.c
+  ../../common/dashboard/src/assets/ultrasemi_logo.c
+)
