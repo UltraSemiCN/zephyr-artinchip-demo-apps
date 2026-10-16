@@ -1,0 +1,24 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+# SPDX-License-Identifier: Apache-2.0
+manifest:
+  version: '1.2'
+  projects:
+  - name: zephyr-artinchip
+    url: https://github.com/UltraSemiCN/zephyr-artinchip.git
+    revision: b16c5b6e4e171b7bdd1a9d9be3b33abfb43251b8
+    path: zephyr-artinchip
+    import:
+      name-allowlist:
+      - mcuboot
+      - mbedtls
+      - lvgl
+      - fatfs
+      - littlefs
+      - zcbor
+      - tf-psa-crypto
+  - name: zephyr-artinchip-tools
+    url: https://github.com/UltraSemiCN/zephyr-artinchip-tools.git
+    revision: e5f236d66aca67263c19f27435a0bee26d5890fc
+    path: zephyr-artinchip-tools
+  self:
+    path: zephyr-artinchip-demo-apps

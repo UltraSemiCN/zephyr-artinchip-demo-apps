@@ -1,0 +1,16 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+# SPDX-License-Identifier: Apache-2.0
+
+sample:
+  name: dashboard_1024x600_d133_lvds
+  description: Animated gauges, trend, meters and status lamps
+common:
+  tags: [display, lvgl]
+  modules: [lvgl]
+  harness: none
+  platform_allow:
+    - artinchip_d13x_demo88_nor/d13x
+tests:
+  sample.artinchip.dashboard_1024x600_d133_lvds:
+    sysbuild: true
+    build_only: true

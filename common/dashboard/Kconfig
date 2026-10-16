@@ -1,0 +1,9 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+# SPDX-License-Identifier: Apache-2.0
+
+source "Kconfig.zephyr"
+
+config LVGL_FS_RESOURCES
+	bool "LittleFS resource files on SPI NOR flash"
+	help
+	  Mount the data partition at /lfs and load assets from resources/.

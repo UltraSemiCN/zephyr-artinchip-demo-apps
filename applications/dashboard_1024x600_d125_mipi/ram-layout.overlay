@@ -1,0 +1,16 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* RGB565 framebuffer occupies 0x40000000..0x4012bfff after handoff.
+ * Reuse MCUboot RAM only after it has jumped to the application.
+ * Keep the application and signed load address inside the remaining 832 KiB.
+ */
+/delete-node/ &psram_app;
+/ {
+	psram_app: memory@40130000 {
+		compatible = "mmio-sram";
+		reg = <0x40130000 0xd0000>;
+	};
+};

@@ -1,0 +1,68 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi Technology Development Co., Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * D213 demo128 NAND: LubanLite origin/master f2ee295b1a09 LVDS defaults.
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/pinctrl/artinchip-pinctrl.h>
+
+/ {
+	chosen {
+		zephyr,display = &de;
+	};
+};
+
+&cctl {
+	artinchip,display-sclk-clock-frequency = <DT_FREQ_M(364)>;
+	artinchip,display-pixclk-clock-frequency = <DT_FREQ_M(52)>;
+};
+
+&lvds {
+	pinctrl-0 = <&lvds_default>;
+	pinctrl-names = "default";
+	display-engine = <&de>;
+	data-mapping = "vesa-24";
+	link = <1>;
+	enable-gpios = <&gpioc 7 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
+
+&de {
+	width = <1024>;
+	height = <600>;
+	hfront-porch = <160>;
+	hback-porch = <160>;
+	hsync-len = <20>;
+	vfront-porch = <20>;
+	vback-porch = <12>;
+	vsync-len = <2>;
+	framebuffer-address = <0x40000000>;
+	framebuffer-size = <0x12c000>;
+	status = "okay";
+	artinchip,manual-start;
+};
+
+&pinctrl {
+	lvds_default: lvds-default {
+		group1 {
+			pinmux = <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 8, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 9, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 10, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 11, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 12, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 13, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 14, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 15, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 16, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 17, 3)>;
+			bias-disable;
+			artinchip,drive-strength = <3>;
+		};
+	};
+};
+
+&gpioc {
+	status = "okay";
+};

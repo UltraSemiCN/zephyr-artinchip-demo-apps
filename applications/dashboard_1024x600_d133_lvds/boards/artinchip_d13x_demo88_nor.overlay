@@ -1,0 +1,64 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi Technology Development Co., Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * 1024x600 VESA 24-bit LVDS panel on D133 demo88 NOR.
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/pinctrl/artinchip-pinctrl.h>
+
+/ {
+	chosen {
+		zephyr,display = &de;
+		zephyr,sram = &psram_app;
+	};
+};
+
+&cctl {
+	artinchip,display-sclk-clock-frequency = <DT_FREQ_M(364)>;
+	artinchip,display-pixclk-clock-frequency = <DT_FREQ_M(52)>;
+};
+
+&lvds {
+	pinctrl-0 = <&lvds_default>;
+	pinctrl-names = "default";
+	display-engine = <&de>;
+	data-mapping = "vesa-24";
+	enable-gpios = <&gpioe 13 GPIO_ACTIVE_HIGH>;
+	status = "okay";
+};
+
+&de {
+	width = <1024>;
+	height = <600>;
+	hfront-porch = <160>;
+	hback-porch = <160>;
+	hsync-len = <20>;
+	vfront-porch = <20>;
+	vback-porch = <12>;
+	vsync-len = <2>;
+	framebuffer-address = <0x40000000>;
+	framebuffer-size = <0x12c000>;
+	status = "okay";
+	artinchip,manual-start;
+};
+
+&pinctrl {
+	lvds_default: lvds-default {
+		group1 {
+			pinmux = <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 18, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 19, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 20, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 21, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 22, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 23, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 24, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 25, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 26, 3)>,
+				 <ARTINCHIP_PINMUX(ARTINCHIP_PORT_D, 27, 3)>;
+			bias-disable;
+			artinchip,drive-strength = <3>;
+		};
+	};
+};

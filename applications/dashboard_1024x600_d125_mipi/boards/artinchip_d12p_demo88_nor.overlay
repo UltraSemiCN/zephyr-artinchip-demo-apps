@@ -1,0 +1,66 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi Technology Development Co., Ltd.
+ * SPDX-License-Identifier: Apache-2.0
+ *
+ * MIPI DSI + EK79007AD 7" panel (luban-lite d12p/demo88-nor default).
+ * PD18-PD27 share parallel RGB24 pinmux; disable RGB when using DSI.
+ */
+
+#include <zephyr/dt-bindings/gpio/gpio.h>
+#include <zephyr/dt-bindings/pinctrl/artinchip-d12p-pinctrl.h>
+#include <zephyr/dt-bindings/mipi_dsi/mipi_dsi.h>
+
+/ {
+	chosen {
+		zephyr,display = &de;
+	};
+};
+
+&cctl {
+	artinchip,display-sclk-clock-frequency = <DT_FREQ_M(312)>;
+	artinchip,display-pixclk-clock-frequency = <DT_FREQ_M(52)>;
+};
+
+&rgb {
+	status = "disabled";
+};
+
+&mipi_dsi {
+	pinctrl-0 = <&mipi_dsi_default>;
+	pinctrl-names = "default";
+	artinchip,manual-phy-start;
+	phy-clock = <DT_FREQ_M(312)>;
+	status = "okay";
+
+	panel_7inch: panel@0 {
+		compatible = "fitipower,ek79007ad";
+		reg = <0>;
+		width = <1024>;
+		height = <600>;
+		data-lanes = <4>;
+		pixel-format = <MIPI_DSI_PIXFMT_RGB888>;
+		bl-gpios = <&gpiof 0 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};
+
+&de {
+	framebuffer-address = <0x40000000>;
+	framebuffer-size = <0x12c000>;
+	status = "okay";
+	artinchip,manual-start;
+};
+
+&pinctrl {
+	mipi_dsi_default: mipi-dsi-default {
+		group1 {
+			pinmux = <D12P_PD18_DSI_D0N>, <D12P_PD19_DSI_D0P>,
+				 <D12P_PD20_DSI_D1N>, <D12P_PD21_DSI_D1P>,
+				 <D12P_PD22_DSI_CKN>, <D12P_PD23_DSI_CKP>,
+				 <D12P_PD24_DSI_D2N>, <D12P_PD25_DSI_D2P>,
+				 <D12P_PD26_DSI_D3N>, <D12P_PD27_DSI_D3P>;
+			bias-disable;
+			artinchip,drive-strength = <3>;
+		};
+	};
+};
