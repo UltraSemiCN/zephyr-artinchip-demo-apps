@@ -5,7 +5,7 @@ manifest:
   projects:
   - name: zephyr-artinchip
     url: https://github.com/UltraSemiCN/zephyr-artinchip.git
-    revision: b16c5b6e4e171b7bdd1a9d9be3b33abfb43251b8
+    revision: ef7fc3115be70ddf1226fc0658043b8535687b94
     path: zephyr-artinchip
     import:
       name-allowlist:
