@@ -1,0 +1,8 @@
+# SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+# SPDX-License-Identifier: Apache-2.0
+
+source "share/sysbuild/Kconfig"
+
+config DASHBOARD_BOOT_LOGO
+	bool "Show the dashboard boot logo in MCUboot and the application"
+	default y

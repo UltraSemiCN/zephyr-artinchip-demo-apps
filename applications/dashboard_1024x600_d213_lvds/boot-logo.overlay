@@ -1,0 +1,12 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+#include "boards/artinchip_d21x_demo128_nand.overlay"
+/ { chosen { zephyr,sram = &mcuboot_ram; zephyr,display = &de; }; };
+/* Reserved gap: below the image load region, above the NOR loader. */
+&de {
+	status = "okay";
+	framebuffer-address = <0x400e0000>;
+	framebuffer-size = <0x16800>;
+	framebuffer-width = <480>;
+	framebuffer-height = <96>;
+};
+&ge { status = "disabled"; };

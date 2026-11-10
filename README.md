@@ -75,6 +75,27 @@ Flash the generated `.img` with the ArtInChip AirBurn tool for your board.
 The `aicupg` shell command enters ROM USB upgrade mode; it does not upload
 firmware itself.
 
+## Boot logo
+
+All four dashboards enable a static partner-logo screen in MCUboot before image
+loading and verification. A 480x96 RGB565 canvas is centered on the native panel
+resolution, without LVGL in the bootloader. The application shows the partner
+logos and websites again before creating the dashboard; no minimum dwell time
+is imposed. The logo indicates startup, not successful signature verification.
+
+The boot canvas occupies `0x400e0000..0x400f67ff` (90 KiB). Compile-time checks
+reject overlap with MCUboot RAM or the image load region. The display driver
+requires support for `framebuffer-width` and `framebuffer-height`; update the
+Zephyr dependency before using this feature from another checkout.
+
+To disable both logo stages, add `-DSB_CONFIG_DASHBOARD_BOOT_LOGO=n` to a pristine
+sysbuild command. Image names and output directories are unchanged.
+
+A board test is still required for first-logo timing, panel reinitialization
+between MCUboot and Zephyr, animation and Shell operation. The display pipeline
+is reinitialized by the application; a brief blank interval can occur during
+handoff. This implementation does not claim seamless hardware-state retention.
+
 ## Boot-shell test
 
 For a minimal D213 NAND boot test without display initialization:
@@ -98,6 +119,17 @@ Use a pristine build when switching back to the shell-only test to clear the
 extra configuration. The output remains
 `build/d213_mcuboot_shell/airburn/artinchip_d21x_demo128_nand_v0.1.0.img`.
 
+## D133 graphics validation
+
+[Graphics validation](applications/graphics_validation_d133_lvds/README.md)
+provides standalone GE pixel-reference tests and DE LVDS/video checks.
+It requires the enhanced GE/DE drivers; older manifest pins may not include
+them. All four LVGL dashboards enable the ArtInChip GE draw unit for supported
+opaque fills and RGB images, with software fallback for other tasks. DE handles
+display output. User-reported board tests passed for all four dashboards on
+2026-10-24. This does not validate every standalone graphics API or quantify
+the acceleration speedup.
+
 ## Validation status
 
 Internal hardware results do not automatically validate the GitHub dependency
@@ -105,6 +137,7 @@ revisions pinned in `west.yml`.
 
 | Scope | Evidence |
 | --- | --- |
+| DE/GE-enabled dashboards | User-reported tests passed on D125 Demo MIPI, D125 UltraSemi MIPI, D133 LVDS and D213 LVDS on 2026-10-24 |
 | Four baseline dashboards | User-reported board tests passed on 2026-10-12 |
 | Latest landscape branding | Internal D125 MIPI build and 19 MCUboot/AirBurn checks passed on 2026-10-16 |
 | Latest branding on hardware | Not yet confirmed |

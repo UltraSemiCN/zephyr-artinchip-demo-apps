@@ -1,5 +1,19 @@
+# Zephyr, sysbuild and host simulation build outputs
 build*/
-.venv/
+cmake-build-*/
+twister-out*/
+
+# Local west and Python environments
 .west/
+.venv/
+venv/
 __pycache__/
-*.pyc
+*.py[cod]
+.pytest_cache/
+
+# Editor and operating-system temporary files
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db

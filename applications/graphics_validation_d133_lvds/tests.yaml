@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0
+tests:
+  applications.graphics_validation_d133_lvds:
+    tags: [display, graphics]
+    build_only: true
+    platform_allow: [artinchip_d13x_demo88_nor/d13x]
+    integration_platforms: [artinchip_d13x_demo88_nor/d13x]
+    extra_args: EXTRA_DTC_OVERLAY_FILE=ram-layout-d13x.overlay

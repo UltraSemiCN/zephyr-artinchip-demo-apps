@@ -12,9 +12,11 @@
 
 LOG_MODULE_REGISTER(dashboard_display, CONFIG_LOG_DEFAULT_LEVEL);
 
+#if !defined(CONFIG_MCUBOOT)
 BUILD_ASSERT(DT_PROP(DT_CHOSEN(zephyr_display), framebuffer_address) +
 	     DT_PROP(DT_CHOSEN(zephyr_display), framebuffer_size) <=
 	     DT_REG_ADDR(DT_CHOSEN(zephyr_sram)), "Framebuffer overlaps application RAM");
+#endif
 
 #if defined(CONFIG_EK79007AD)
 static int dashboard_display_init(void)

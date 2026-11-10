@@ -1,0 +1,15 @@
+/* SPDX-License-Identifier: Apache-2.0 */
+#include "boards/ultrasemi_d12p_usbdisp_demo88_nor_5_5.overlay"
+/ { chosen { zephyr,sram = &mcuboot_direct_ram; zephyr,display = &de; }; };
+&mcuboot_direct_ram { reg = <0x40000100 0x7ff00>; };
+&mipi_dsi { status = "okay"; };
+&display_pipeline { status = "okay"; };
+/* Reserved gap: below the image load region, above the NOR loader. */
+&de {
+	status = "okay";
+	framebuffer-address = <0x400e0000>;
+	framebuffer-size = <0x16800>;
+	framebuffer-width = <480>;
+	framebuffer-height = <96>;
+};
+&ge { status = "disabled"; };

@@ -31,8 +31,13 @@ int main(void)
 		return 0;
 	}
 
+	/* Keep the displayed logo while building the dashboard object tree. */
+	if (IS_ENABLED(CONFIG_DASHBOARD_BOOT_LOGO)) {
+		lv_obj_clean(lv_screen_active());
+	}
 	dashboard_create();
-	lv_timer_handler();
+	/* Force the first frame now instead of waiting for the refresh timer. */
+	lv_refr_now(NULL);
 	ret = display_blanking_off(display);
 	if (ret < 0 && ret != -ENOSYS) {
 		LOG_ERR("Failed to turn blanking off (error %d)", ret);

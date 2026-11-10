@@ -66,3 +66,7 @@
 &gpioc {
 	status = "okay";
 };
+
+&ge {
+	status = "okay";
+};

@@ -1,0 +1,20 @@
+/*
+ * SPDX-FileCopyrightText: Copyright (c) 2026 UltraSemi
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/* PBP initializes PSRAM before MCUboot runs at 0x40000100.
+ * After MCUboot hands off, reuse 0x40000000..0x4012bfff for the framebuffer; keep
+ * the application within the first 2 MiB of PSRAM.
+ */
+/ {
+	psram_app: memory@40130000 {
+		compatible = "mmio-sram";
+		reg = <0x40130000 0xd0000>;
+	};
+
+	chosen {
+		mcuboot,ram-load-dev = &psram_app;
+		mcuboot,image-ram = &psram_app;
+	};
+};

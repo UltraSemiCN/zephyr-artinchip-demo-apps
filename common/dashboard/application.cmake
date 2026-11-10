@@ -8,6 +8,11 @@ target_sources(app PRIVATE
   ${DASHBOARD_COMMON_DIR}/src/dashboard.c
 )
 
+target_sources_ifdef(CONFIG_DASHBOARD_BOOT_LOGO app PRIVATE
+  ${DASHBOARD_COMMON_DIR}/src/boot_logo.c
+  ${DASHBOARD_COMMON_DIR}/src/display_handoff.c
+)
+
 if(CONFIG_LVGL_FS_RESOURCES)
   find_package(Python3 REQUIRED COMPONENTS Interpreter)
 

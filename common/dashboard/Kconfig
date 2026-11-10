@@ -7,3 +7,14 @@ config LVGL_FS_RESOURCES
 	bool "LittleFS resource files on SPI NOR flash"
 	help
 	  Mount the data partition at /lfs and load assets from resources/.
+
+config DASHBOARD_BOOT_LOGO
+	bool "Show partner logos before dashboard creation"
+	default y
+	depends on DISPLAY && LVGL && LV_Z_AUTO_INIT
+	depends on LV_FONT_MONTSERRAT_18
+	help
+	  Render the partner logos and websites after LVGL initialization,
+	  before application initialization and dashboard creation. Reuse the
+	  display buffers and assets, without a fixed startup delay. This does
+	  not display a logo during MCUboot image loading or verification.

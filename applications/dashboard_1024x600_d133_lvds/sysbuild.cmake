@@ -13,3 +13,5 @@ foreach(image mcuboot ${DEFAULT_IMAGE})
   sysbuild_cache_set(VAR ${var} APPEND REMOVE_DUPLICATES
                     "${CMAKE_CURRENT_LIST_DIR}/${dashboard_ram_layout}")
 endforeach()
+
+include(${CMAKE_CURRENT_LIST_DIR}/../../common/boot_logo/sysbuild.cmake)
